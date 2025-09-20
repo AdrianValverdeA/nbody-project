@@ -22,28 +22,21 @@ import java.util.Scanner;
  ******************************************************************************/
 
 public class Universe {
-    public  int n;             // number of bodies
-    public  Body[] bodies;     // array of n bodies
 
+    private int numBodies;
+    private double radius;
+    private Body[] bodies;
 
-    // read universe from standard input
-    public Universe(String fname) {
+    public Universe(String fname)
+    {
         try {
             Scanner in = new Scanner(new FileReader(fname));
-            n = Integer.parseInt(in.next());
-            // number of bodies
-            System.out.println("n=" + n);
-
-            // the set scale for drawing on screen
-            double radius = Double.parseDouble(in.next());
-            System.out.println("radius=" + radius);
-            StdDraw.setXscale(-radius, +radius);
-            StdDraw.setYscale(-radius, +radius);
-
-            // read in the n bodies
-            bodies = new Body[n];
-            for (int i = 0; i < n; i++) {
-                System.out.println("i=" + i);
+            numBodies = Integer.parseInt(in.next());
+            // the set scale to draw on the canvas
+            radius = Double.parseDouble(in.next());
+            // read and make the n bodies
+            bodies = new Body[numBodies];
+            for (int i = 0; i < numBodies; i++) {
                 double rx = Double.parseDouble(in.next());
                 double ry = Double.parseDouble(in.next());
                 double vx = Double.parseDouble(in.next());
@@ -54,60 +47,46 @@ public class Universe {
                 Vector r = new Vector(position);
                 Vector v = new Vector(velocity);
                 bodies[i] = new Body(r, v, mass);
+                System.out.println(bodies[i]);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
     }
+    public void update(double dt)
+    {
+        Vector[] forces = new Vector[numBodies];
 
-    // increment time by dt units, assume forces are constant in given interval
-    public void increaseTime(double dt) {
-
-        // initialize the forces to zero
-        Vector[] f = new Vector[n];
-        for (int i = 0; i < n; i++) {
-            f[i] = new Vector(new double[2]);
+        for (int i = 0; i < numBodies; i++) {
+            forces[i] = new Vector(2); // vector in 2D
         }
 
-        // compute the forces
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i != j) {
-                    f[i] = f[i].plus(bodies[i].forceFrom(bodies[j]));
+        for (int i=0; i<numBodies; i++)
+        {
+            for (int j=0; j<numBodies; j++)
+            {
+                if (i!=j)
+                {
+                    forces[i] = forces[i].plus(bodies[i].forceFrom(bodies[j]));  //adds the accumulation force by the others bodies in a Vector
                 }
             }
-        }
-
-        // move the bodies
-        for (int i = 0; i < n; i++) {
-            bodies[i].move(f[i], dt);
+            bodies[i].move(forces[i], dt); //adds the total force made by other bodies for knowing the new position and move it
         }
     }
 
-    // draw the n bodies
-    public void draw() {
-        for (int i = 0; i < n; i++) {
-            bodies[i].draw();
-        }
+    public double getRadius(){
+        return radius;
     }
 
-
-    // client to simulate a universe
-    // In IntelliJ : Run -> Run... -> Edit configurations -> Program arguments 1000 data/3body.txt
-    public static void main(String[] args) {
-        Universe newton;
-        double dt = Double.parseDouble(args[0]);
-        System.out.println("dt=" + dt);
-        String fname = args[1];
-        newton = new Universe(fname);
-        StdDraw.enableDoubleBuffering();
-        int pause = 0;
-        while (true) {
-            StdDraw.clear();
-            newton.increaseTime(dt);
-            newton.draw();
-            StdDraw.show();
-            StdDraw.pause(pause);
-        }
+    public Vector getBodyPosition(int i)
+    {
+        return bodies[i].getPosition();
     }
+
+    public int getNumBodies()
+    {
+        return numBodies;
+    }
+
 }
