@@ -17,7 +17,7 @@ public class NBodySimulator
         //StdDraw.setCanvasSize(700, 700); // uncomment for a larger window
         StdDraw.enableDoubleBuffering();
         StdDraw.setPenRadius(0.025);
-        double radius = universe.getRadius();
+        double radius = universe.getRadius() *  4;
         // read from txt file, second line
         StdDraw.setXscale(-radius, +radius);
         StdDraw.setYscale(-radius, +radius);

@@ -54,6 +54,31 @@ public class Universe {
         }
 
     }
+
+    public Universe(Body[] bodies, double radius) {
+
+      this.bodies = bodies;
+      this.numBodies = bodies.length;
+      this.radius = radius;
+
+      for (int i = 0; i < numBodies; i++) {
+        /*double rx = Double.parseDouble(in.next());
+        double ry = Double.parseDouble(in.next());
+        double vx = Double.parseDouble(in.next());
+        double vy = Double.parseDouble(in.next());
+        double mass = Double.parseDouble(in.next());
+        double[] position = {rx, ry};
+        double[] velocity = {vx, vy};
+        Vector r = new Vector(position);
+        Vector v = new Vector(velocity);
+        bodies[i] = new Body(r, v, mass);
+        */
+        System.out.println(bodies[i]);
+      }
+
+    }
+
+
     public void update(double dt)
     {
         Vector[] forces = new Vector[numBodies];

@@ -12,11 +12,19 @@ public class Body {
     private Vector r;           // position
     private Vector v;           // velocity
     private final double mass;  // mass
+    private double G;
 
     public Body(Vector r, Vector v, double mass) {
         this.r = r;
         this.v = v;
         this.mass = mass;
+    }
+
+    public Body(Vector r, Vector v, double mass, double G) {
+      this.r = r;
+      this.v = v;
+      this.mass = mass;
+      this.G = G;
     }
 
     public void move(Vector f, double dt) {
