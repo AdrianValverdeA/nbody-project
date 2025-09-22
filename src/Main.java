@@ -5,12 +5,13 @@ public class Main {
     double dt = Double.parseDouble(args[0]);
     int pauseTime = Integer.parseInt(args[1]);
     boolean trace = args[2].toLowerCase().equals("trace");
-    String fname = args[3]; // No se usa, pero se espera por la aserción
-    Universe universe = new Universe(fname); // we need to be modifying the entry parameters
-    //Universe universe = UniverseFactory.makeChoreography(69);
+    System.out.println(trace);
+    String fname = args[3];
+    //Universe universe = new Universe(fname); // we need to be modifying the entry parameters
+    Universe universe = UniverseFactory.makeChoreography(1);
     //Universe universe = UniverseFactory.makeUniverseFromFile(fname);
-    //Universe universe = UniverseFactory.makeCentralConfiguration(3, 1);
-    //Universe universe = UniverseFactory.makePlanetaryConfiguration(7);
+    //Universe universe = UniverseFactory.makeCentralConfiguration(10, 1e10);
+    //Universe universe = UniverseFactory.makePlanetaryConfiguration(7); /well done mdfk
     NBodySimulator simulator = new NBodySimulator(universe, dt, pauseTime, trace);
     System.out.println(universe.getNumBodies());
     simulator.simulate();

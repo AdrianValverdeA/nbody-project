@@ -39,6 +39,7 @@ public class Body {
         Vector delta = b.r.minus(a.r);
         double dist = delta.magnitude();
         double magnitude = (G * a.mass * b.mass) / (dist * dist);
+        System.out.println(magnitude);
         return delta.direction().scale(magnitude);
     }
 

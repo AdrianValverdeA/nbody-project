@@ -62,17 +62,7 @@ public class Universe {
       this.radius = radius;
 
       for (int i = 0; i < numBodies; i++) {
-        /*double rx = Double.parseDouble(in.next());
-        double ry = Double.parseDouble(in.next());
-        double vx = Double.parseDouble(in.next());
-        double vy = Double.parseDouble(in.next());
-        double mass = Double.parseDouble(in.next());
-        double[] position = {rx, ry};
-        double[] velocity = {vx, vy};
-        Vector r = new Vector(position);
-        Vector v = new Vector(velocity);
-        bodies[i] = new Body(r, v, mass);
-        */
+
         System.out.println(bodies[i]);
       }
 
@@ -86,14 +76,15 @@ public class Universe {
         for (int i = 0; i < numBodies; i++) {
             forces[i] = new Vector(2); // vector in 2D
         }
-
+        Vector zeroVector = new Vector(2);
         for (int i=0; i<numBodies; i++)
         {
             for (int j=0; j<numBodies; j++)
             {
                 if (i!=j)
                 {
-                    forces[i] = forces[i].plus(bodies[i].forceFrom(bodies[j]));  //adds the accumulation force by the others bodies in a Vector
+                    forces[i] = forces[i].plus(bodies[i].forceFrom(bodies[j]));
+                    //forces[i] = zeroVector;;//adds the accumulation force by the others bodies in a Vector
                 }
             }
             bodies[i].move(forces[i], dt); //adds the total force made by other bodies for knowing the new position and move it

@@ -17,7 +17,7 @@ public class NBodySimulator
         //StdDraw.setCanvasSize(700, 700); // uncomment for a larger window
         StdDraw.enableDoubleBuffering();
         StdDraw.setPenRadius(0.025);
-        double radius = universe.getRadius() *  4;
+        double radius = universe.getRadius();
         // read from txt file, second line
         StdDraw.setXscale(-radius, +radius);
         StdDraw.setYscale(-radius, +radius);
@@ -43,14 +43,25 @@ public class NBodySimulator
     public void simulate()
     {
         this.createCanvas();
-
+        StdDraw.clear(StdDraw.GRAY);
         while(trace)
         {
-            StdDraw.clear();
-            universe.update(timeStep);
-            this.drawUniverse();
-            StdDraw.show();
-            StdDraw.pause(pauseTime);
+          StdDraw.setPenColor(StdDraw.WHITE);
+          this.drawUniverse();
+          universe.update(timeStep);
+          StdDraw.setPenColor(StdDraw.BLACK);
+          this.drawUniverse();
+          StdDraw.show();
+          StdDraw.pause(pauseTime);
+
+        }
+        while(!trace)
+        {
+          StdDraw.clear();
+          universe.update(timeStep);
+          this.drawUniverse();
+          StdDraw.show();
+          StdDraw.pause(pauseTime);
         }
     }
 }
