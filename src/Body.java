@@ -11,8 +11,11 @@
 public class Body {
     private Vector r;           // position
     private Vector v;           // velocity
-    private final double mass;  // mass
+    private double mass;  // mass
     private double G;
+    private Vector accel;
+    private double velocity;
+    private double position;
 
     public Body(Vector r, Vector v, double mass) {
         this.r = r;
@@ -28,9 +31,9 @@ public class Body {
     }
 
     public void move(Vector f, double dt) {
-        Vector a = f.scale(1/mass);
-        v = v.plus(a.scale(dt));
-        r = r.plus(v.scale(dt));
+      Vector a = f.scale(1/mass); // f = m a
+      this.v = this.v.plus(a.scale(dt)); // v = a t
+      this.r = this.r.plus(this.v.scale(dt)); // e = v t
     }
 
     public Vector forceFrom(Body b) {
@@ -39,8 +42,27 @@ public class Body {
         Vector delta = b.r.minus(a.r);
         double dist = delta.magnitude();
         double magnitude = (G * a.mass * b.mass) / (dist * dist);
-        System.out.println(magnitude);
         return delta.direction().scale(magnitude);
+    }
+
+    public Vector getBodyAcceleration()
+    {
+      return accel;
+    }
+
+    public Vector getBodyVelocity()
+    {
+      return v;
+    }
+
+    public void setBodyVelocity( Vector vNew)
+    {
+      this.v = vNew;
+    }
+
+    public void setBodyAcceleration(Vector aNew)
+    {
+      this.accel=aNew;
     }
 
     public Vector getPosition()
@@ -48,9 +70,18 @@ public class Body {
         return r;
     }
 
+    public double getBodyMass()
+    {
+      return mass;
+    }
 
+    public void setBodyPosition(Vector r)
+    {
+      this.r = r;
+    }
     @Override
     public String toString() {
         return "position "+r.toString()+", velocity "+v.toString() + ", mass "+mass;
     }
+
 }

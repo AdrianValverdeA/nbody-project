@@ -8,10 +8,15 @@ public class Main {
     System.out.println(trace);
     String fname = args[3];
     //Universe universe = new Universe(fname); // we need to be modifying the entry parameters
-    Universe universe = UniverseFactory.makeChoreography(1);
-    //Universe universe = UniverseFactory.makeUniverseFromFile(fname);
+    //Universe universe = UniverseFactory.makeChoreography(1);
+    Universe universe = UniverseFactory.makeUniverseFromFile(fname);
     //Universe universe = UniverseFactory.makeCentralConfiguration(10, 1e10);
-    //Universe universe = UniverseFactory.makePlanetaryConfiguration(7); /well done mdfk
+    //Universe universe = UniverseFactory.makePlanetaryConfiguration(7); //well done mdfk
+
+
+    Integrator integrator = new Euler(10);
+    universe.setIntegrator(integrator);
+
     NBodySimulator simulator = new NBodySimulator(universe, dt, pauseTime, trace);
     System.out.println(universe.getNumBodies());
     simulator.simulate();
