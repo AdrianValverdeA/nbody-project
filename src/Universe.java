@@ -69,7 +69,7 @@ public class Universe {
     }
 
 
-    public void update(double dt)
+    /*public void update(double dt)
     {
         Vector[] forces = new Vector[numBodies];
 
@@ -95,6 +95,19 @@ public class Universe {
         }
 
     }
+    */
+
+    public void update(double dt) {
+        Vector[] forces = new Vector[numBodies];
+        // Calculate forces for all bodies
+        for (int i = 0; i < numBodies; i++) {
+            forces[i] = computeForceOn(i);
+        }
+        // Move each body using the total force
+        for (int i = 0; i < numBodies; i++) {
+            bodies[i].move(forces[i], dt);
+        }
+    }
 
     public Vector getBodyAcceleration(int i)
     {
@@ -111,9 +124,19 @@ public class Universe {
       return bodies[i].getBodyMass();
     }
 
-    public Vector computeForceOn(int i)
+    /*public Vector computeForceOn(int i)
     {
       return bodies[i].forceFrom(bodies[i]);
+    }*/
+
+    public Vector computeForceOn(int i) {
+        Vector totalForce = new Vector(2); // Zero vector in 2D
+        for (int j = 0; j < numBodies; j++) {
+            if (i != j) {
+                totalForce = totalForce.plus(bodies[i].forceFrom(bodies[j]));
+            }
+        }
+        return totalForce;
     }
 
     public double getRadius(){

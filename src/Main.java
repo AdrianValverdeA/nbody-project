@@ -9,16 +9,19 @@ public class Main {
     String fname = args[3];
     //Universe universe = new Universe(fname); // we need to be modifying the entry parameters
     //Universe universe = UniverseFactory.makeChoreography(1);
-    Universe universe = UniverseFactory.makeUniverseFromFile(fname);
-    //Universe universe = UniverseFactory.makeCentralConfiguration(10, 1e10);
-    //Universe universe = UniverseFactory.makePlanetaryConfiguration(7); //well done mdfk
+    //Universe universe = UniverseFactory.makeUniverseFromFile(fname);
+    Universe universe = UniverseFactory.makeCentralConfiguration(10, 1e10);
+    //Universe universe = UniverseFactory.makePlanetaryConfiguration(7); //well done
 
 
-    Integrator integrator = new Euler(10);
-    universe.setIntegrator(integrator);
 
-    NBodySimulator simulator = new NBodySimulator(universe, dt, pauseTime, trace);
-    System.out.println(universe.getNumBodies());
+    Integrator integrator = new Euler(1000);
+    //universe.setIntegrator(integrator);
+
+    //NBodySimulator simulator = new NBodySimulator(universe, dt, pauseTime, trace);
+      NBodySimulator simulator = new NBodySimulator(universe, dt, pauseTime, trace, integrator);
+
+    //System.out.println(universe.getNumBodies());
     simulator.simulate();
   }
 }

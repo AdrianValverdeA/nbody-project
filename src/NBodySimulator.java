@@ -4,12 +4,21 @@ public class NBodySimulator
     private int pauseTime;
     private boolean trace;
     private Universe universe;
+    private Integrator integrator;
 
     public NBodySimulator(Universe universe, double dt, int pt, boolean doTrace) {
         this.universe = universe;
         timeStep = dt;
         pauseTime = pt;
         trace = doTrace;
+    }
+
+    public NBodySimulator(Universe universe, double dt, int pt, boolean doTrace, Integrator integrator) {
+        this.universe = universe;
+        timeStep = dt;
+        pauseTime = pt;
+        trace = doTrace;
+        this.integrator = integrator;
     }
 
     private void createCanvas()
@@ -48,7 +57,8 @@ public class NBodySimulator
         {
           StdDraw.setPenColor(StdDraw.WHITE);
           this.drawUniverse();
-          universe.update(timeStep);
+          //universe.update(timeStep);
+          integrator.move(universe);
           StdDraw.setPenColor(StdDraw.BLACK);
           this.drawUniverse();
           StdDraw.show();
