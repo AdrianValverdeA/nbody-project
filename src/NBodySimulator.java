@@ -57,8 +57,8 @@ public class NBodySimulator
         {
           StdDraw.setPenColor(StdDraw.WHITE);
           this.drawUniverse();
-          universe.update(timeStep);
-          //integrator.move(universe);
+          //universe.update(timeStep);
+          integrator.move(universe);
           StdDraw.setPenColor(StdDraw.BLACK);
           this.drawUniverse();
           StdDraw.show();

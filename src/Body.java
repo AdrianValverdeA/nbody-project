@@ -12,7 +12,7 @@ public class Body {
     private Vector r;           // position
     private Vector v;           // velocity
     private double mass;  // mass
-    private double G;
+    private double G = 6.67e-11;
     private Vector accel;
     private double velocity;
     private double position;
@@ -38,7 +38,10 @@ public class Body {
 
     public Vector forceFrom(Body b) {
         Body a = this;
-        double G = 1;
+        if (b.G != 1)
+        {
+          double G = 6.67e-11;
+        }
         Vector delta = b.r.minus(a.r);
         double dist = delta.magnitude();
         double magnitude = (G * a.mass * b.mass) / (dist * dist);

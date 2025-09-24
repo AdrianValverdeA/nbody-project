@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Euler extends Integrator
 {
   public Euler(double timeStep)
@@ -19,9 +20,14 @@ public class Euler extends Integrator
       newPositions[i] = universe.getBodyPosition(i).plus(newVelocities[i].scale(timeStep));
     }
     for (int i=0; i<numBodies; i++) {
+      universe.getBodyPosition(i);
       universe.setBodyPosition(i, newPositions[i]);
       universe.setBodyVelocity(i, newVelocities[i]);
-      // no need to set the acceleration in Euler integration
+      System.out.println("a");
+      universe.getBodyPosition(i);
+      Scanner scanner = new Scanner(System.in);
+      //String nombre = scanner.nextLine();
+
     }
 
   }

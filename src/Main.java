@@ -16,7 +16,6 @@ public class Main {
 
 
     Integrator integrator = new Euler(10);
-    //universe.setIntegrator(integrator);
 
     //NBodySimulator simulator = new NBodySimulator(universe, dt, pauseTime, trace);
       NBodySimulator simulator = new NBodySimulator(universe, dt, pauseTime, trace, integrator);
