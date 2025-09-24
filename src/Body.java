@@ -14,8 +14,6 @@ public class Body {
     private double mass;  // mass
     private double G = 6.67e-11;
     private Vector accel;
-    private double velocity;
-    private double position;
 
     public Body(Vector r, Vector v, double mass) {
         this.r = r;
@@ -38,9 +36,9 @@ public class Body {
 
     public Vector forceFrom(Body b) {
         Body a = this;
-        if (b.G != 1)
+        if (b.G != 1) // per fer choreography correctament
         {
-          double G = 6.67e-11;
+          double G = 1;
         }
         Vector delta = b.r.minus(a.r);
         double dist = delta.magnitude();

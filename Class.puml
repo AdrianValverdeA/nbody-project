@@ -1,0 +1,99 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+title N-Body Simulation Class Diagram
+
+abstract class Integrator {
+  # timeStep : double
+  + Integrator(double timeStep)
+  + {abstract} move(Universe universe)
+}
+
+class Euler {
+  + Euler(double timeStep)
+  + move(Universe universe)
+}
+
+class Leapfrog {
+  + Leapfrog(double timeStep)
+  + move(Universe universe)
+}
+
+class Universe {
+  - numBodies : int
+  - radius : double
+  - bodies : Body[]
+  + Universe(String fname)
+  + Universe(Body[] bodies, double radius)
+  + getBodyAcceleration(int i) : Vector
+  + getBodyVelocity(int i) : Vector
+  + getBodyMass(int i) : double
+  + computeForceOn(int i) : Vector
+  + getRadius() : double
+  + getBodyPosition(int i) : Vector
+  + getNumBodies() : int
+  + setBodyVelocity(int i, Vector vNew)
+  + setBodyAcceleration(int i, Vector vNew)
+  + setBodyPosition(int i, Vector r)
+}
+
+class UniverseFactory {
+  + {static} makeUniverseFromFile(String fname) : Universe
+  + {static} makeCentralConfiguration(int numBodies, double angleVelPos) : Universe
+  + {static} makeChoreography(int nchoreography) : Universe
+  + {static} makePlanetaryConfiguration(int numPlanets) : Universe
+}
+
+class NBodySimulator {
+  - timeStep : double
+  - pauseTime : int
+  - trace : boolean
+  - universe : Universe
+  - integrator : Integrator
+  + NBodySimulator(Universe universe, double dt, int pt, boolean doTrace, Integrator integrator)
+  - createCanvas()
+  - drawUniverse()
+  + simulate()
+}
+
+class Body {
+  - r : Vector
+  - v : Vector
+  - mass : double
+  - {static} G : double = 6.67e-11
+  - accel : Vector
+  + Body(Vector r, Vector v, double mass)
+  + Body(Vector r, Vector v, double mass, double G)
+  + move(Vector f, double dt)
+  + forceFrom(Body b) : Vector
+  + getBodyAcceleration() : Vector
+  + getBodyVelocity() : Vector
+  + setBodyVelocity(Vector vNew)
+  + setBodyAcceleration(Vector aNew)
+  + getPosition() : Vector
+  + getBodyMass() : double
+  + setBodyPosition(Vector r)
+  + toString() : String
+}
+
+class Main {
+  + {static} main(String[] args)
+}
+
+NBodySimulator --> "1" Universe : universe
+
+Universe "1" *-- "*" Body : bodies
+
+NBodySimulator o-- "1" Integrator : integrator
+
+Integrator "1"<|-- Euler : timeStep
+Integrator "1"<|-- Leapfrog : timeStep
+
+UniverseFactory "1"..> Universe : Universe
+
+Main ..>"1" UniverseFactory : fname, numbBodies, angleVelPos, nChoreography, numPlanets
+Main -->"1" Integrator : timeStep
+Main --> "1" NBodySimulator : universe, dt, pauseTime, trace, integrator
+
+
+@enduml

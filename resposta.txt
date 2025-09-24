@@ -1,0 +1,55 @@
+which GRASP patterns / design principles are we applying in doing the refactoring ? and each of the extensions ? 
+why do you say so ?
+
+
+
+Introduim una classe abstracta Integrator amb subclasses Euler i Leapfrog:
+
+- Expert:
+
+Universe és l'expert perquè conté tots els cossos i les dades necessàries per als càlculs de forces. Body és l'expert per actualitzar la seva pròpia posició i velocitat basant-se en les forces
+
+
+- High cohesion and low coupling:
+
+Les subclasses de Integrator gestionen només com passa el temps, Universe gestiona cossos i forces, NBodySimulator maneja la visualització dels cossos.
+
+NBodySimulator i Universe depenen només de la interfície, no de les implementacions dels mètodes. (menys dependències)
+
+
+- Polymorphism:
+
+Aplicat en la classe abstracta Integrator, on Euler i Leapfrog implementen de manera diferents el metode move(). Això permet intercanviar integradors a Main sense canviar altres codis (NBodySimulator crida integrator.move(universe) de). Això ens permet fer diferents mètodes d'integració i utilitzan varies maneres de comportament dels cosos (Euler, Leapfrog, update inicial...)
+
+
+Amb Integrator:
+
+- Polimorfisme: Leapfrog/Euler extén Integrator i sobrescriu move, ens permet ferlo servir segons les necesitats.
+
+- Baix Acoblament: Amb la extensió no necesitem fer canvis a Universe o NBodySimulator.
+
+- Alta Cohesió: Leapfrog es centra només en el seu algoritme d'integració (actualitzacions de posició i velocitat).
+
+Amb makeChoreography:
+
+- Creator: UniverseFactory és el que crea instàncies de Universe amb cossos específics de coreografia.
+
+- Expert: UniverseFactory gestiona la lectura d'arxius i la inicialització de cossos.
+
+- Baix Acoblament: Main crida al mètode de factory sense conèixer detalls
+
+Amb makePlanetaryConfiguration:
+
+- Creador: UniverseFactory crea el Universe amb una estrella central i planetes random
+
+- Expert: La fàbrica és experta en generar dades planetàries (angles random, velocitats dins de min/max)
+
+- Alta Cohesió: El mètode de fàbrica es centra en la configuració planetaria
+
+Amb makeCentralConfiguration:
+
+- Creador: UniverseFactory crea el Universe amb cossos en una configuració central, fetn servir paràmetres com numBodies i angleVelPos
+
+
+
+

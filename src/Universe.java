@@ -95,9 +95,9 @@ public class Universe {
         }
 
     }
-    */
+    */ // pas refactorization
 
-    public void update(double dt) {
+    /*public void update(double dt) {
         Vector[] forces = new Vector[numBodies];
         // Calculate forces for all bodies
         for (int i = 0; i < numBodies; i++) {
@@ -108,6 +108,7 @@ public class Universe {
             bodies[i].move(forces[i], dt);
         }
     }
+    */ // pas extension configurations
 
     public Vector getBodyAcceleration(int i)
     {
@@ -123,11 +124,6 @@ public class Universe {
     {
       return bodies[i].getBodyMass();
     }
-
-    /*public Vector computeForceOn(int i)
-    {
-      return bodies[i].forceFrom(bodies[i]);
-    }*/
 
     public Vector computeForceOn(int i) {
         Vector totalForce = new Vector(2); // Zero vector in 2D

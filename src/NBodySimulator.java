@@ -6,12 +6,14 @@ public class NBodySimulator
     private Universe universe;
     private Integrator integrator;
 
-    public NBodySimulator(Universe universe, double dt, int pt, boolean doTrace) {
+    /*public NBodySimulator(Universe universe, double dt, int pt, boolean doTrace) {
         this.universe = universe;
         timeStep = dt;
         pauseTime = pt;
         trace = doTrace;
     }
+
+     */ // pas extension configurations
 
     public NBodySimulator(Universe universe, double dt, int pt, boolean doTrace, Integrator integrator) {
         this.universe = universe;
@@ -57,18 +59,18 @@ public class NBodySimulator
         {
           StdDraw.setPenColor(StdDraw.WHITE);
           this.drawUniverse();
-          //universe.update(timeStep);
+          //universe.update(timeStep); // pas refactorization
           integrator.move(universe);
           StdDraw.setPenColor(StdDraw.BLACK);
           this.drawUniverse();
           StdDraw.show();
           StdDraw.pause(pauseTime);
-
         }
         while(!trace)
         {
           StdDraw.clear();
-          universe.update(timeStep);
+          //universe.update(timeStep); // pas refactorization
+          integrator.move(universe);
           this.drawUniverse();
           StdDraw.show();
           StdDraw.pause(pauseTime);
