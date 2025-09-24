@@ -38,7 +38,7 @@ public class Body {
 
     public Vector forceFrom(Body b) {
         Body a = this;
-        double G = 6.67e-11;
+        double G = 1;
         Vector delta = b.r.minus(a.r);
         double dist = delta.magnitude();
         double magnitude = (G * a.mass * b.mass) / (dist * dist);
